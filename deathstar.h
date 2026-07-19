@@ -2,13 +2,12 @@
  * DEATH STAR INFILTRATOR!
  *
  * I'm just doing a test/prototype right now, but this is gonna be the main game header. I guess. 
- * The plan is to adapt that whole PICO-8 Platformer tutorial to NYFW and C. Which has been difficult so far,
- * but I think splitting it into multiple files will help (a bit, at least). Plus, I will need multiple files 
- * anyway, so yeah. 
  *
- * Besides doing the tutorial from the videos, I think I'll also try to fix the backend parts just a bit. 
- * Possibly by scaling the game screen each frame? I'm not actually sure. Lol. I'll think about that before
- * I do it. 
+ * Progress 7/19/26 4:15 pm:
+ * 	I decided I'm too lazy to fix up the backend like I planned (at least right now) and just
+ * 	want to move forward with the tutorial. So, I guess that's what I'm gonna do. I think
+ * 	I'll take a short break first, maybe circling back here later. Though I have other things
+ * 	I need to do. But yeah, pretty good work so far. 
  *
  */
 
