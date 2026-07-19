@@ -57,22 +57,25 @@ extern Control c;
 extern Player p;
 extern bool running;
 
+
 /* ----- COLLISION ----- */
+typedef enum {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+} Aim;
+
+bool collide_map(int x, int y, int w, int h, Aim a, int flag);
 
 
 /* ----- PLAYER ----- */
-int limit_speed(int num, int maximum);
-
 void player_update();
 void player_animate();
 void draw_player();
 
 
 /* ----- INIT/CLOSE ----- */
-NYFW_Canvas load_tiles();
-int load_level();
-int load_sprites();
-
 int ds_init();
 void ds_close();
 

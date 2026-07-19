@@ -1,7 +1,7 @@
 # DEATH STAR INFILTRATOR MAKEFILE
 
 BDIR=build
-OBJ=build/main.o build/initclose.o build/updatedraw.o
+OBJ=build/main.o build/initclose.o build/updatedraw.o build/player.o build/collision.o
 
 ds: $(OBJ)
 	gcc $(OBJ) -lnyfw -o $@
@@ -17,6 +17,13 @@ $(BDIR)/initclose.o: src/initclose.c | $(BDIR)
 
 $(BDIR)/updatedraw.o: src/updatedraw.c | $(BDIR)
 	gcc -c $< -o $@
+
+$(BDIR)/player.o: src/player.c | $(BDIR)
+	gcc -c $< -o $@
+
+$(BDIR)/collision.o: src/collision.c | $(BDIR)
+	gcc -c $< -o $@
+
 
 clean:
 	rm -rf build
