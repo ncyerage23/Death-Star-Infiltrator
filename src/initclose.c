@@ -9,6 +9,7 @@ Control c;
 Player p;
 
 
+/* ----- HELPERS ----- */
 NYFW_Canvas load_tiles()
 {
 	FILE* fp;
@@ -40,29 +41,24 @@ NYFW_Canvas load_tiles()
 
 int load_level()
 {
-	/* ----- LEVEL MAP ----- */
-	if (!nyfw_loadNYMG(&c.level_map, "assets/proto.nymap")) return 0;
+	/* ----- LEVEL ----- */
+	if (!nyfw_loadNYMG(&c.level, "assets/proto.nymap")) return 0;
 
-	/* ----- LEVEL LAYER ALLOCATION ----- */
-	uint16_t* level_layer_pixels = malloc(2 * 1024 * 1024);
-	if (!level_layer_pixels) return 0;
-	c.level_screen = nyfw_canvas(level_layer_pixels, 1024, 1024, 1024);
+	/* ----- LEVEL SCREEN ----- */	
+	uint16_t* level_scr_pixels = malloc(2 * 128 * 128);	// 128x128 pixels: 16x16 tiles at normal resolution
+	if (!level_scr_pixels) return 0;
+	c.level_screen = nyfw_canvas(level_scr_pixels, 128, 128, 128);
 	nyfw_canvasClear(c.level_screen);
 
-	/* ----- THE TILE PALETTE ----- */
+	/* ----- DRAWING TO LEVEL SCREEN ----- */
 	NYFW_Canvas tiles = load_tiles();
-	uint16_t* test_pixels = tiles.pixels;
-	tiles = nyfw_canvasScaleUp(tiles, 8);
-	free(test_pixels);
-
-	/* ----- DRAWING THE FULL LEVEL ----- */
 	for (int j = 0; j < 16; j++) {
 		for (int i = 0; i < 16; i++) {
-			int ti = c.level_map.pixels[j * 16 + i];
+			int ti = c.level.pixels[j * 16 + i];
 			if (ti == 0) continue;
 
-			NYFW_Rect srcr = { 64 * (ti%4), 64 * (ti/4), 64, 64 };
-			NYFW_Rect dstr = { i*64, j*64, 64, 64 };
+			NYFW_Rect srcr = { 8 * (ti%4), 8 * (ti/4), 8, 8 };
+			NYFW_Rect dstr = { i*8, j*8, 8, 8 };
 			nyfw_canvasBlit(tiles, &srcr, c.level_screen, &dstr);
 		}
 	}
@@ -73,22 +69,15 @@ int load_level()
 
 int load_sprites()
 {
-	NYFW_Canvas s1, s2, s3;
-	nyfw_loadNYMG(&s1, "assets/sprites/player_1.nymg");
-	nyfw_loadNYMG(&s2, "assets/sprites/player_2.nymg");
-	nyfw_loadNYMG(&s3, "assets/sprites/player_3.nymg");
-
-	c.player_sprite[0] = nyfw_canvasScaleUp(s1, 8);
-	c.player_sprite[1] = nyfw_canvasScaleUp(s2, 8);
-	c.player_sprite[2] = nyfw_canvasScaleUp(s3, 8);
-
-	free(s1.pixels);
-	free(s2.pixels);
-	free(s3.pixels);
+	nyfw_loadNYMG(&c.player_sprite[0], "assets/sprites/player_1.nymg");
+	nyfw_loadNYMG(&c.player_sprite[1], "assets/sprites/player_2.nymg");
+	nyfw_loadNYMG(&c.player_sprite[2], "assets/sprites/player_3.nymg");
 
 	return 1;
 }
 
+
+/* ----- MAIN INIT/CLOSE ----- */
 int ds_init()
 {
 	/* ----- INITIALIZATION ----- */
@@ -107,20 +96,31 @@ int ds_init()
 	
 	if (!load_level()) return 0;
 	if (!load_sprites()) return 0;
-
+	
+	uint16_t* game_pixels = malloc(2 * 128 * 128);
+	c.game_layer = nyfw_canvas(game_pixels, 128, 128, 128);
+	nyfw_canvasClear(c.game_layer);
+	
 	/* ----- PLAYER STRUCT ----- */
-	p.x = 192,	p.y = 192;
-	p.sp = 0;
-	p.w = 64,	p.h = 64;
-	p.flip = false;
-	p.dx = 5.0f,		p.dy = 0.0f;
-	p.max_dx = 2.0f,	p.max_dy = 3.0f;
-	p.acc = 0.5f;
-	p.boost = 4;
-	p.anim = 0;
-	p.running = false;	p.jumping = false;
-	p.falling = false;	p.sliding = false;
-	p.landed = false;
+	p = (Player){
+		.sp = 0,
+		.x = 59.0f,	.y = 59.0f,
+		.w = 8,		.h = 8,
+		.flip = false,
+
+		.dx = 0.0f,	.dy = 0.0f,
+		.max_dx = 2.0f,	.max_dy = 3.0f,
+		.acc = 0.5f,
+		.boost = 4.0f,
+		
+		.anim = 0,
+		.running = false,
+		.jumping = false,
+		.falling = false,
+		.sliding = false,
+		.landed = false,
+	};
+
 
 	return 1;
 }
@@ -128,7 +128,7 @@ int ds_init()
 
 void ds_close()
 {
-	free(c.level_map.pixels);
+	free(c.level.pixels);
 	free(c.level_screen.pixels);
 
 	free(c.player_sprite[0].pixels);

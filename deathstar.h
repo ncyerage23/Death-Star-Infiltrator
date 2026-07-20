@@ -9,6 +9,16 @@
  * 	I'll take a short break first, maybe circling back here later. Though I have other things
  * 	I need to do. But yeah, pretty good work so far. 
  *
+ * Progress 7/20/26 2:51 pm:
+ * 	A few things. I decided I'm not too lazy to fix up the backend, so I did that. I now have
+ * 	a 128x128 game layer which I draw everything to, then I scale it up and copy it to the 
+ * 	screen every frame. Makes more sense (somewhat). Unfortunately, it's ridiculously slow,
+ * 	running (doing pretty much nothing but a simple update) at around 2 FPS. From some time checks
+ * 	I've discovered the main culprit is the scale function I need to call every frame (drawing the
+ * 	border and blitting also take longer, but like 1% of the scale call). 
+ * 	So, the next step is to speed up scaling. I'll probably just do it in this instead of fixing
+ * 	the NYFW scale function -- for now -- but idk what I can do really. So...yeah. 
+ *
  */
 
 #ifndef DEATHSTAR_H
@@ -23,31 +33,35 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <time.h>
 
 
 /* ----- STRUCTS ----- */
 typedef struct {
 	NYFW_Canvas scr;
-	NYFW_Rect game_rect;
-	NYFW_Rect border_rects[4];
+	NYFW_Rect game_rect;			// space where game will be displayed on scr
+	NYFW_Rect border_rects[4];		// border around game on scr
 	
-	NYFW_Canvas level_map;		// compressed map form (for collision & stuff, loaded from .nymap)
-	NYFW_Canvas level_screen;	// version for copying to the screen
-	NYFW_Canvas player_sprite[3];
+	NYFW_Canvas level;			// map loaded from .nymap file, 16x16 (1px = 1 tile index)
+	NYFW_Canvas player_sprite[3];		// player sprites, 8x8 pixels (equivalent to 1 tile in size)
+	NYFW_Canvas level_screen;		// level upscaled to 128x128 pixels (tiles pasted here. for quick copying to final game screen)
+
+	NYFW_Canvas game_layer;			// 128x128 game layer (draw sprites + level to this, then scale and paste)
 } Control;
 
 typedef struct {
-	int x, y;
+	float x, y;
 	int sp;
 	int w, h;
 	bool flip;
+
 	float dx, dy;
 	float max_dx, max_dy;
 	float acc;
-	int boost;
+	float boost;
+
 	int anim;
-	bool running, jumping, falling, sliding;
-	bool landed;
+	bool running, jumping, falling, sliding, landed;
 } Player;
 
 
@@ -55,6 +69,9 @@ typedef struct {
 extern Control c;
 extern Player p;
 extern bool running;
+
+#define GRAVITY		0.3f
+#define FRICTION	0.85f
 
 
 /* ----- COLLISION ----- */

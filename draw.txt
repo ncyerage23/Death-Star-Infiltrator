@@ -1,0 +1,144 @@
+Draw 0:
+	total: 487.66 ms
+	border: 9.59 ms
+	level: 0.17 ms
+	player: 0.02 ms
+	scale: 468.49 ms
+	blit: 9.39 ms
+
+Draw 1:
+	total: 486.25 ms
+	border: 8.22 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 468.41 ms
+	blit: 9.45 ms
+
+Draw 2:
+	total: 477.01 ms
+	border: 8.18 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 459.43 ms
+	blit: 9.23 ms
+
+Draw 3:
+	total: 477.08 ms
+	border: 8.23 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 459.32 ms
+	blit: 9.37 ms
+
+Draw 4:
+	total: 477.81 ms
+	border: 8.64 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 460.12 ms
+	blit: 8.86 ms
+
+Draw 5:
+	total: 481.67 ms
+	border: 8.51 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 463.64 ms
+	blit: 9.35 ms
+
+Draw 6:
+	total: 477.52 ms
+	border: 8.48 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 459.48 ms
+	blit: 9.39 ms
+
+Draw 7:
+	total: 477.29 ms
+	border: 8.45 ms
+	level: 0.18 ms
+	player: 0.02 ms
+	scale: 459.42 ms
+	blit: 9.22 ms
+
+Draw 8:
+	total: 478.02 ms
+	border: 8.56 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 459.37 ms
+	blit: 9.92 ms
+
+Draw 9:
+	total: 477.56 ms
+	border: 8.20 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 459.81 ms
+	blit: 9.38 ms
+
+Draw 10:
+	total: 486.23 ms
+	border: 8.20 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 468.53 ms
+	blit: 9.33 ms
+
+Draw 11:
+	total: 480.15 ms
+	border: 8.20 ms
+	level: 0.15 ms
+	player: 0.02 ms
+	scale: 462.56 ms
+	blit: 9.22 ms
+
+Draw 12:
+	total: 477.19 ms
+	border: 8.61 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 459.24 ms
+	blit: 9.17 ms
+
+Draw 13:
+	total: 478.43 ms
+	border: 8.50 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 460.51 ms
+	blit: 9.24 ms
+
+Draw 14:
+	total: 481.54 ms
+	border: 8.46 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 463.62 ms
+	blit: 9.28 ms
+
+Draw 15:
+	total: 477.50 ms
+	border: 8.18 ms
+	level: 0.48 ms
+	player: 0.03 ms
+	scale: 459.83 ms
+	blit: 8.97 ms
+
+Draw 16:
+	total: 477.04 ms
+	border: 8.45 ms
+	level: 0.20 ms
+	player: 0.02 ms
+	scale: 459.43 ms
+	blit: 8.95 ms
+
+Draw 17:
+	total: 479.64 ms
+	border: 8.44 ms
+	level: 0.16 ms
+	player: 0.02 ms
+	scale: 461.16 ms
+	blit: 9.87 ms
+

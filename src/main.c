@@ -7,6 +7,7 @@
 
 bool running = true;
 
+
 int main()
 {
 	ds_init();
