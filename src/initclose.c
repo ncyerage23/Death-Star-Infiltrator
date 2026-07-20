@@ -86,7 +86,6 @@ int ds_init()
 
 	/* ----- CONTROL STRUCT ----- */
 	c.scr = nyfw_getWindowCanvas();
-	nyfw_canvasClear(c.scr);
 	
 	c.game_rect = (NYFW_Rect){ 448, 28, 1024, 1024 };
 	c.border_rects[0] = (NYFW_Rect){ 428, 28, 20, 1024 };		// left
@@ -94,6 +93,8 @@ int ds_init()
 	c.border_rects[2] = (NYFW_Rect){ 428, 8, 1064, 20 };		// top
 	c.border_rects[3] = (NYFW_Rect){ 428, 1052, 1064, 20 };		// bottom
 	
+	ds_draw_screen();
+
 	if (!load_level()) return 0;
 	if (!load_sprites()) return 0;
 	

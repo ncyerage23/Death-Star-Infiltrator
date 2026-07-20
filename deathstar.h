@@ -98,6 +98,7 @@ void ds_close();
 
 /* ----- UPDATE/DRAW ----- */
 void ds_update();
+void ds_draw_screen();
 void ds_draw();
 
 

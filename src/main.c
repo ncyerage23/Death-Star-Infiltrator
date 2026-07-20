@@ -8,16 +8,23 @@
 bool running = true;
 
 
+void mainloop()
+{
+	ds_update();
+	if (!running) return;
+
+	ds_draw();
+	nyfw_windowPresent();
+}
+
+
 int main()
 {
 	ds_init();
 
+	int i = 0;
 	while (running) {
-		ds_update();
-		if (!running) break;
-
-		ds_draw();
-		nyfw_windowPresent();
+		mainloop();
 	}
 	
 	ds_close();
