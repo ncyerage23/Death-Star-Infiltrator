@@ -46,6 +46,35 @@ void ds_draw()
 	int gy = c.game_rect.y;
 	int scr_stride = c.scr.stride;
 	
+	
+	// do not get this (found online)
+	uint16_t row_buf[128*8];
+	for (int sy = 0; sy < 128; sy++) {
+		uint16_t* src_row = &c.game_layer.pixels[sy*128];
+
+		uint64_t* rb = (uint64_t*)row_buf;
+		for (int sx = 0; sx < 128; sx++) {
+			uint16_t p = src_row[sx];
+			uint64_t quad = (uint64_t)p
+				| ((uint64_t)p << 16)
+				| ((uint64_t)p << 32)
+				| ((uint64_t)p << 48);
+			rb[0] = quad;
+			rb[1] = quad;
+			rb += 2;
+		}
+
+		uint16_t* dst_base = &c.scr.pixels[(gy+sy*8) * scr_stride + gx];
+		for (int oy = 0; oy < 8; oy++) {
+			memcpy(dst_base + oy * scr_stride, row_buf, sizeof(row_buf));
+		}
+	}
+
+
+
+
+	/*
+	// do not get this (found online)
 	for (int sy = 0; sy < 128; sy++) {
 		uint16_t* src_row = &c.game_layer.pixels[sy*128];
 
@@ -68,6 +97,8 @@ void ds_draw()
 			}
 		}
 	}
+	*/
+
 }
 
 
