@@ -19,6 +19,14 @@
  * 	So, the next step is to speed up scaling. I'll probably just do it in this instead of fixing
  * 	the NYFW scale function -- for now -- but idk what I can do really. So...yeah. 
  *
+ * Progress 7/20/26 8:45 pm:
+ * 	The scale function is like really really slow, so I ended up finding another one online
+ * 	(with a little help from ChatGPT, unfortunately). I have two (one is commented out) in the 
+ * 	function, and both work significantly better than anything I've done so far, so I'm gonna keep
+ * 	it as-is, at least for now. Maybe with the future refactors I'll start figuring this stuff out
+ * 	more on my own, but at this point I'm happy with what I have. It actually runs relatively well,
+ * 	so I'm not complaining. Cool. 
+ *
  */
 
 #ifndef DEATHSTAR_H
