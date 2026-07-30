@@ -14,8 +14,9 @@ void ds_update()
 		running = false;
 		return;
 	}
-
-	p.y = p.y + GRAVITY;
+	
+	player_update();
+	player_animate();
 }
 
 

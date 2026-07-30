@@ -90,7 +90,7 @@ typedef enum {
 	DOWN
 } Aim;
 
-bool collide_map(int x, int y, int w, int h, Aim a, int flag);
+bool collide_map(int x, int y, int w, int h, Aim a);
 
 
 /* ----- PLAYER ----- */

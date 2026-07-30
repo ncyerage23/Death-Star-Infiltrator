@@ -22,7 +22,6 @@ int main()
 {
 	ds_init();
 
-	int i = 0;
 	while (running) {
 		mainloop();
 	}
