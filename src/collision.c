@@ -29,7 +29,12 @@ bool collide_map(int x, int y, int w, int h, Aim a)
 	// convert pixels to tiles
 	x1 /= 8;	y1 /= 8;
 	x2 /= 8;	y2 /= 8;
-	
+
+	if (a == LEFT && x1 < 0) return true;
+	else if (a == RIGHT && x2 >= 16) return true;
+	else if (a == UP && y1 < 0) return true;
+	else if (a == DOWN && y1 >= 16) return true;
+
 	if ( 
 		CANV_PIXEL(c.level, x1, y1) != 0 ||
 		CANV_PIXEL(c.level, x1, y2) != 0 ||
