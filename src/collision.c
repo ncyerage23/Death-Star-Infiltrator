@@ -31,9 +31,9 @@ bool collide_map(int x, int y, int w, int h, Aim a)
 	x2 /= 8;	y2 /= 8;
 
 	if (a == LEFT && x1 < 0) return true;
-	else if (a == RIGHT && x2 >= 16) return true;
+	else if (a == RIGHT && x2 > 15) return true;
 	else if (a == UP && y1 < 0) return true;
-	else if (a == DOWN && y1 >= 16) return true;
+	else if (a == DOWN && y1 > 15) return true;
 
 	if ( 
 		CANV_PIXEL(c.level, x1, y1) != 0 ||

@@ -26,6 +26,11 @@
  * 	it as-is, at least for now. Maybe with the future refactors I'll start figuring this stuff out
  * 	more on my own, but at this point I'm happy with what I have. It actually runs relatively well,
  * 	so I'm not complaining. Cool. 
+ *	
+ * Progress 8/5/26 4:32 pm:
+ * 	Idk why I didn't write any more here, but...I finished the test. We are now in the "prototype stage".
+ * 	Right now I'm just making more art and thinking about stuff, but soon I'll be moving forward with this
+ * 	whole thing. It's gonna be interesting. 
  *
  */
 
@@ -79,7 +84,7 @@ extern Player p;
 extern bool running;
 
 #define GRAVITY		0.3f
-#define FRICTION	0.85f
+#define FRICTION	0.75f
 
 
 /* ----- COLLISION ----- */
