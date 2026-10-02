@@ -42,7 +42,7 @@ NYFW_Canvas load_tiles()
 int load_level()
 {
 	/* ----- LEVEL ----- */
-	if (!nyfw_loadNYMG(&c.level, "assets/proto.nymap")) return 0;
+	if (!nyfw_loadNYMG(&c.level, "assets/maps/proto.nymap")) return 0;
 
 	/* ----- LEVEL SCREEN ----- */	
 	uint16_t* level_scr_pixels = malloc(2 * 128 * 128);	// 128x128 pixels: 16x16 tiles at normal resolution
@@ -69,9 +69,9 @@ int load_level()
 
 int load_sprites()
 {
-	nyfw_loadNYMG(&c.player_sprite[0], "assets/sprites/player_1.nymg");
-	nyfw_loadNYMG(&c.player_sprite[1], "assets/sprites/player_2.nymg");
-	nyfw_loadNYMG(&c.player_sprite[2], "assets/sprites/player_3.nymg");
+	nyfw_loadNYMG(&c.player_sprite[0], "assets/tiles/player_1.nymg");
+	nyfw_loadNYMG(&c.player_sprite[1], "assets/tiles/player_2.nymg");
+	nyfw_loadNYMG(&c.player_sprite[2], "assets/tiles/player_3.nymg");
 
 	return 1;
 }
