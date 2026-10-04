@@ -1,5 +1,5 @@
 /*
- * Input -- managing input devices 
+ * Input Header -- managing input devices 
  *
  * This guy will (obviously) track input from keyboard/mouse (and more later)
  * It's pretty simple for now, though I'll need to do some expanding. 

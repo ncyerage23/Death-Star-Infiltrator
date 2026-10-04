@@ -1,10 +1,11 @@
 
 /*
- * NYFW_Window -- stuff for opening and working w/ the pi's framebuffer
+ * core/window source -- stuff for opening and working w/ the pi's framebuffer
  *
  * This is pretty simple, just accessing the file in dev/fb0 and mapping its
  * memory (using it as a NYFW_Canvas, defined elsewhere) for simplicity and 
  * whatnot.
+ *
  *
  */
 
@@ -27,8 +28,10 @@
 static struct {
 	int fb;			// file descriptor for the framebuffer
 	
+	int using_bb;		// 0 for no, 1 for yes
+
 	NYFW_Canvas fb_canvas;	// canvas for framebuffer
-	NYFW_Canvas bb_canvas;	// same for backbuffer
+	NYFW_Canvas bb_canvas;	// same for backbuffer (null if using_bb == 1)
 	
 	uint32_t screensize;
 
@@ -48,7 +51,7 @@ static struct {
 
 
 /* ----- FUNCTIONS! ----- */
-int nyfw_windowInit()
+int nyfw_windowInit(int bb)
 {
 	// opening the buffer
 	win.fb = open("/dev/fb0", O_RDWR);
@@ -82,16 +85,24 @@ int nyfw_windowInit()
 		return 0;
 	}
 
-	uint16_t* bb_pixels = (uint16_t*)malloc(win.screensize);
-	if (bb_pixels == NULL) {
-		printf("backbuffer allocation failed :(\n");
-		return 0;
+	
+	win.using_bb = bb;
+	
+	if (bb) {
+		uint16_t* bb_pixels = (uint16_t*)malloc(win.screensize);
+		if (bb_pixels == NULL) {
+			printf("backbuffer allocation failed :(\n");
+			return 0;
+		}
+		
+		win.bb_canvas = nyfw_canvas(bb_pixels, width, height, stride);
 	}
-
+	else {
+		win.bb_canvas = CANV_NULL;
+	}
 
 	// creating the canvases!
 	win.fb_canvas = nyfw_canvas(fb_pixels, width, height, stride);
-	win.bb_canvas = nyfw_canvas(bb_pixels, width, height, stride);
 
 
 	// set to graphics mode
@@ -114,28 +125,33 @@ void nyfw_windowClose()
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &win.og);	// reset to original terminal mode
 	
 	munmap(win.fb_canvas.pixels, win.screensize);	// freeing the buffers
-	free(win.bb_canvas.pixels);		
+	
+	if (win.using_bb)
+		free(win.bb_canvas.pixels);		
 	
 	close(win.fb);
 }
 
 
+
+
 NYFW_Canvas nyfw_getWindowCanvas()
 {
-	return win.bb_canvas;
+	return (win.using_bb) ? win.bb_canvas : win.fb_canvas;
 }
 
 
 void nyfw_windowPresent()
 {
-	// nyfw_canvasBlit(win.bb_canvas, NULL, win.fb_canvas, NULL);
-	// this ^ is slow asf unfortunately, so I'll do it w/ memcpy here for now
+
+	if (win.using_bb) {
+		memcpy(
+			win.fb_canvas.pixels,
+			win.bb_canvas.pixels,
+			win.screensize
+		);
+	}
 	
-	memcpy(
-		win.fb_canvas.pixels,
-		win.bb_canvas.pixels,
-		win.screensize
-	);
 }
 
 

@@ -1,6 +1,9 @@
 
 /*
- * core/input -- reading input for keyboard/mouse
+ * core/input source -- reading input for keyboard/mouse
+ * 
+ * TODO: add all the keys, and just make this not suck (possibly allow something else to poll the input)
+ * TODO: somehow, make it so I can use other keyboards and mice for this bs. 
  *
  */
 
@@ -121,6 +124,7 @@ int nyfw_inputInit(int flags)
 	if (flags & INPUT_MOUSE) {
 		inp.mouse_on = 1;
 		inp.mouse_fd = open("/dev/input/by-id/usb-Logitech_USB_Receiver-if02-event-mouse", O_RDONLY | O_NONBLOCK);
+		
 		if (inp.mouse_fd < 0) {
 			printf("Error: mouse input device not found\n");
 			return 0;

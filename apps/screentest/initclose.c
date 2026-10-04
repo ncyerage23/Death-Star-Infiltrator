@@ -81,7 +81,7 @@ int load_sprites()
 int ds_init()
 {
 	/* ----- INITIALIZATION ----- */
-	if (!nyfw_windowInit()) return 0;
+	if (!nyfw_windowInit(1)) return 0;
 	if (!nyfw_inputInit(INPUT_KEYS)) return 0;
 
 	/* ----- CONTROL STRUCT ----- */

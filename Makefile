@@ -14,6 +14,7 @@ objs = $(patsubst %.c,build/%.o,$(wildcard $(1)/*.c))
 # modules
 CORE		:= $(call objs,engine/core)
 CANVAS		:= $(call objs,engine/canvas)
+MOUSE		:= $(call objs,engine/mouse)
 
 
 # apps
@@ -21,11 +22,11 @@ bin/screentest: $(call objs,apps/screentest) $(CORE) $(CANVAS)
 	@mkdir -p $(@D)
 	gcc $^ -o $@
 
-bin/mapmaker: $(call objs,apps/mapmaker) $(CORE) $(CANVAS)
+bin/mapmaker: $(call objs,apps/mapmaker) $(CORE) $(CANVAS) $(MOUSE)
 	@mkdir -p $(@D)
 	gcc $^ -o $@
 
-bin/tilepainter: $(call objs,apps/tilepainter) $(CORE) $(CANVAS)
+bin/tilepainter: $(call objs,apps/tilepainter) $(CORE) $(CANVAS) $(MOUSE)
 	@mkdir -p $(@D)
 	gcc $^ -o $@
 

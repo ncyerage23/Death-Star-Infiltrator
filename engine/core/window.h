@@ -16,13 +16,13 @@
 
 
 /* ----- WINDOW ----- */
-int nyfw_windowInit();	// initializer (and closer) for window system
+int nyfw_windowInit(int bb);	// initializer (and closer) for window system (+ option for using backbuffer. 1 for yes, 0 for no)
 void nyfw_windowClose();
+
 
 NYFW_Canvas nyfw_getWindowCanvas();	// returns pointer to canvas struct representing the window's framebuffer (and relating data) (well, it's actually the backbuffer lol)
 
-void nyfw_windowPresent();	
-// updates the screen framebuffer with a virtual backbuffer
+void nyfw_windowPresent();		// updates the screen framebuffer with a virtual backbuffer
 
 
 
