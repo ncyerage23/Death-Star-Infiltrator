@@ -5,12 +5,12 @@
  * Described in detail in docs/files.md, but I'll put another one here. 
  * 
  * Anyway, this is the basis of all game data saved to binary files. For this
- * module (engine/files), I'm gonna use the prefix "nyfile_" for any functions. 
+ * module (engine/files), I'm gonna use the prefix "f_" for any functions. 
  *
  */
 
-#ifndef NYHEADER_H
-#define NYHEADER_H
+#ifndef F_HEADER_H
+#define F_HEADER_H
 
 
 /* ----- INCLUDES ----- */
@@ -33,12 +33,12 @@ typedef struct {
 	uint8_t version;	// version of file
 	char type[2];		// data type in file (see docs)
 	uint32_t size;		// size (in bytes) of remaining file
-} NYHeader;
+} f_header;
 
 
 /* ----- READ/WRITE ----- */
-int nyfile_readHeader(FILE* f, NYHeader* head);
-int nyfile_writeHeader(FILE* f, NYHeader* head);
+int f_readHeader(FILE* fp, f_header* head);
+int f_writeHeader(FILE* fp, f_header* head);
 
 // return 1 on success, 0 on fail
 
