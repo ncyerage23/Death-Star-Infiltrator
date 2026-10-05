@@ -18,6 +18,15 @@
 #include <stdio.h>
 
 
+/* ----- TYPE DEFINITIONS ----- */
+#define FTYPE_PALETTE	0x504c		// PL: palette
+#define FTYPE_TILE	0x544c		// TL: tile
+#define FTYPE_ROOM	0x524d		// RM: room layout
+#define FTYPE_TILEMAP	0x544d		// TM: tilemap
+#define FTYPE_BIGMAP	0x424d		// BM: bigmap
+#define FTYPE_IMAGE	0x4d47		// MG: regular ole image
+
+
 /* ----- NYHEADER STRUCT (8 BYTES) ----- */
 typedef struct {
 	char magic[2];		// always 'NY'
