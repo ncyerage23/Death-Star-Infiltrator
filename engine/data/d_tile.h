@@ -46,8 +46,6 @@ typedef struct {
 } d_tile;
 
 
-// may have some functions here, but it's not suuper necessary. This module is specifically for data,
-// not rendering or loading or anything like that. 
 
 
 #endif
